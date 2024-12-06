@@ -1,6 +1,6 @@
-# ShellMind
+# SheLLMind
 
-**ShellMind** is a terminal-based interactive chat application that integrates with the [Ollama](https://ollama.ai/) API to provide a local LLM-based chat experience. It supports session persistence, multiple model selection, scrolling chat history, and various configuration menus—all within the terminal environment.
+**SheLLMind** is a terminal-based interactive chat application that integrates with the [Ollama](https://ollama.ai/) API to provide a local LLM-based chat experience. It supports session persistence, multiple model selection, scrolling chat history, and various configuration menus—all within the terminal environment.
 
 ## Features
 
@@ -31,8 +31,8 @@ The application is primarily tested on macOS/Linux. Windows users may consider u
 
 1. **Clone the Repository**:
   ```bash
-  git clone https://github.com/thelabexpedition67/shellmind.git
-  cd shellmind
+  git clone https://github.com/thelabexpedition67/SheLLMind.git
+  cd SheLLMind
   ```
 
 2. **Create a Virtual Environment (Recommended)**:
@@ -57,7 +57,18 @@ The application is primarily tested on macOS/Linux. Windows users may consider u
   mkdir -p history history_details
   ```
 
-## Running ShellMind
+6. **Create configuration**:
+  - Create a config.json file inside the root folder with this content:
+  ```bash
+  {
+    "ollama_host": "http://10.20.30.40:11434",
+    "model_name": "llama3.1:8b",
+    "typewriter_speed": 1
+  }
+  ```
+  Obviously, you need to change the reported example values.
+
+## Running SheLLMind
 
 Start the application:
   ```bash
@@ -93,7 +104,8 @@ Press b to go back to the previous menu.
   - **ui_elements.py**: Custom widgets (e.g., CustomEdit).
   - **config.py**: Loads settings from config.json.
   - **debug.py**: Logging and debugging utilities.
-
+  - **classes/**: Classes.
+  
 **Data Files**:
   - **history/**: JSON files for conversation messages.
   - **history_details/**: JSON files for metadata (model name, chat name, etc.).
@@ -111,4 +123,4 @@ Press b to go back to the previous menu.
 
 ## License
 
-**ShellMind** is released under the MIT License.
+**SheLLMind** is released under the MIT License.
