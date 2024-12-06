@@ -3,9 +3,23 @@ import os
 
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), "config.json")
 
+DEFAULT_CONFIG = {
+    "ollama_host": "http://127.0.0.1:11434",  # Default host for Ollama
+    "model_name": "",          # Default model name
+    "typewriter_speed": 1      # Default typewriter speed
+}
+
 class Config:
     def __init__(self):
+        self._ensure_config_file()
         self._data = self._load_config()
+
+    def _ensure_config_file(self):
+        # Check if the config file exists
+        if not os.path.exists(CONFIG_FILE):
+            with open(CONFIG_FILE, "w") as f:
+                # Create the file with default values
+                json.dump(DEFAULT_CONFIG, f, indent=4)
 
     def _load_config(self):
         with open(CONFIG_FILE, "r") as f:

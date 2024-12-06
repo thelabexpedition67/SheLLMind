@@ -8,12 +8,13 @@
 - **Persistent Chat Sessions**: Conversations are automatically saved, allowing you to resume where you left off.
 - **History Management**: Browse a list of saved chats, sorted by modification time, and see chat details like creation time, last modified time, and an optional chat name.
 - **Multiple Model Selection**: Choose from available Ollama models before starting a new chat, or use the configured default model.
-- **Configurable UI**:
+- **UI**:
   - **Chat**: Send messages, switch focus between chat history and input box, enjoy auto-scrolling and optional typewriter effects.
   - **History Menu**: View previously saved chat sessions with additional metadata (name, creation time, last modified time).
   - **Help Menu**: Display available keyboard shortcuts and commands.
   - **Chat Settings**: Edit the chat name or delete the chat (both history and details).
-- **Customizable Keys**: Use various key combinations to navigate, send messages, insert newlines, open menus, switch focus, and more.
+  - **System Settings**: Edit the system settings like the Ollama API url and the default model with ease.
+- **Shortcuts Keys**: Use various key combinations to navigate, send messages, insert newlines, open menus, switch focus, and more.
 
 ## Requirements
 
@@ -57,17 +58,6 @@ The application is primarily tested on macOS/Linux. Windows users may consider u
   mkdir -p history history_details
   ```
 
-6. **Create configuration**:
-  - Create a config.json file inside the root folder with this content:
-  ```bash
-  {
-    "ollama_host": "http://10.20.30.40:11434",
-    "model_name": "llama3.1:8b",
-    "typewriter_speed": 1
-  }
-  ```
-  Obviously, you need to change the reported example values.
-
 ## Running SheLLMind
 
 Start the application:
@@ -78,7 +68,9 @@ Start the application:
 You will see a main menu with options:
 - **Start Chat**: Begin a new conversation (you’ll choose a model if available).
 - **History**: View saved chats, ordered by modification time.
+- **Configuration**: Configure the Ollama API url and other parameters (You must do this on the first run).
 - **Help**: Show keyboard shortcuts and commands.
+- **About**: Show about.
 - **Quit**: Exit the application.
 
 ## Keyboard Shortcuts
@@ -90,11 +82,35 @@ You will see a main menu with options:
   - **ctrl+o**: Quit the application.
   - **esc**: Return to the main menu.
   - **ctrl+e**: Open the chat settings menu (rename or delete chat).
+  - **alt+h**: Show keyboard shortcuts and commands.
 
 **Menus**:
 
 Use arrow keys and enter to select menu items.
 Press b to go back to the previous menu.
+
+**Important: Navigating Long Responses**
+
+When the AI response is very long, the chat interface pauses scrolling once the first line of the response reaches the top of the screen. This is intentional and ensures that you can start reading the response from the beginning without it being scrolled too quickly out of view.
+
+How to Navigate Using the Keyboard
+
+1. **Switch Focus to Chat History**:
+   - Press **`Ctrl+W`** to toggle the focus from the input box to the chat history.
+
+2. **Scroll Through the Response**:
+   - Use the **`Up`** and **`Down`** arrow keys to navigate through the response at your own pace.
+
+3. **Return to the Input Box**:
+   - When ready to type a new message, press **`Ctrl+W`** again to switch focus back to the input box.
+
+**Using the Mouse**
+
+If you prefer using a **mouse**, you can:
+- Click on the chat history and scroll through the response.
+- Click back on the input box to resume typing.
+
+This behavior ensures that long responses are fully visible from the start, giving you time to read and scroll as needed.
 
 ## Directory Structure
   - **app.py**: Entry point.
@@ -104,7 +120,7 @@ Press b to go back to the previous menu.
   - **ui_elements.py**: Custom widgets (e.g., CustomEdit).
   - **config.py**: Loads settings from config.json.
   - **debug.py**: Logging and debugging utilities.
-  - **classes/**: Classes.
+  - **classes/**: Menu elements Classes.
   
 **Data Files**:
   - **history/**: JSON files for conversation messages.
@@ -120,6 +136,14 @@ Press b to go back to the previous menu.
 - **No Models Found**: Check if Ollama is running and models are listed by ollama list.
 - **No Chats in History**: Start a new chat and send a message; it will appear in history on return.
 - **Terminal Rendering Issues**: Try a larger terminal or a different terminal emulator.
+
+## Development Notice
+
+This software is currently in **open development** and continues to evolve with ongoing improvements. It may contain bugs or incomplete features. 
+
+I welcome feedback and will gladly work on resolving issues when possible, balancing updates with my available free time.
+
+Feel free to contribute to the project if you’d like! Your ideas, code contributions, and feedback are all greatly appreciated.
 
 ## License
 
