@@ -28,7 +28,7 @@ class Menu:
         menu_items = [start_chat_btn, history_btn, config_btn, help_btn, about_btn, quit_btn]
         self.list_walker = urwid.SimpleFocusListWalker(menu_items)
         # Add a footer text to the menu
-        footer_text = urwid.Text("SheLLMind (TheLabExpedition67)", align='right')
+        footer_text = urwid.Text("SheLLMind - TheLabExpedition67", align='right')
         frame = urwid.Frame(urwid.ListBox(self.list_walker), footer=footer_text)
         self.view = urwid.LineBox(frame, title="Menu")
         

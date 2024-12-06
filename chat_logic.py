@@ -25,17 +25,26 @@ class ChatManager:
         self.chat_name = ""  # Add this line to track the chat name
 
     def list_available_models(self):
-        # self.client.list() returns a dictionary with a "models" key, which is a list of dicts.
-        # Each dict has a "name" key for the model name.
+        """
+        Fetch available models from the client. Handles cases where models are listed under 'name' or 'model'.
+        """
         try:
+            # Fetch the result from the client
             result = self.client.list()
             models_info = result.get("models", [])
-            # Extract only the 'name' field from each model entry
+            
+            # Attempt to extract names using 'name'
             model_names = [m.get("name") for m in models_info if "name" in m]
+            
+            # If no models are found using 'name', fallback to 'model'
+            if not model_names:
+                model_names = [m.get("model") for m in models_info if "model" in m]
+            
             return model_names
         except Exception as e:
             # In case of error, return an empty list
             return []
+
 
     def send_user_message(self, user_input, on_reply_ready, on_error):
         self.typing_in_progress = True
