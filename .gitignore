@@ -1,0 +1,14 @@
+# Ignore the config file
+config.json
+
+# Ignore log files
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+__pycache__
+
+# Ignore history folders
+history/
+history_details/
