@@ -126,12 +126,6 @@ This behavior ensures that long responses are fully visible from the start, givi
   - **history/**: JSON files for conversation messages.
   - **history_details/**: JSON files for metadata (model name, chat name, etc.).
 
-## Customization
-
-- **Configuration**: Edit config.json to change default model or typewriter speed.
-- **Keybindings**: Adjust handle_input methods or CustomEdit keypress handling.
-- **Extensibility**: Add new menus, features, or logic in separate modules.
-
 ## Troubleshooting
 - **No Models Found**: Check if Ollama is running and models are listed by ollama list.
 - **No Chats in History**: Start a new chat and send a message; it will appear in history on return.
