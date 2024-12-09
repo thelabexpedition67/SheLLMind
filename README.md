@@ -35,7 +35,6 @@ The application is primarily tested on macOS/Linux. Windows users may consider u
   git clone https://github.com/thelabexpedition67/SheLLMind.git
   cd SheLLMind
   ```
-
 2. **Create a Virtual Environment (Recommended)**:
   ```bash
   python3 -m venv venv
@@ -46,25 +45,29 @@ The application is primarily tested on macOS/Linux. Windows users may consider u
   ```bash
   pip install -r requirements.txt
   ```
-
 4. **Set Up Ollama**:
 
   - Install Ollama and ensure it’s running.
   - Pull or prepare your models with ollama pull modelname.
-  - Update config.json with the correct ollama_host and a default model_name.
 
 5. **Prepare Directories**:
   ```bash
   mkdir -p history history_details
   ```
-
+6. **Set permissions**:
+  ```bash
+  chmod +x run.sh
+  ```  
 ## Running SheLLMind
 
 Start the application:
   ```bash
-  python app.py
+  python main.py
   ```
-
+  or (on Linux)
+  ```bash
+  ./run.sh
+  ```
 You will see a main menu with options:
 - **Start Chat**: Begin a new conversation (you’ll choose a model if available).
 - **History**: View saved chats, ordered by modification time.

@@ -12,3 +12,6 @@ __pycache__
 # Ignore history folders
 history/
 history_details/
+
+# Ignore Folders
+venv
