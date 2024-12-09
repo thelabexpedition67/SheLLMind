@@ -116,7 +116,7 @@ If you prefer using a **mouse**, you can:
 This behavior ensures that long responses are fully visible from the start, giving you time to read and scroll as needed.
 
 ## Directory Structure
-  - **app.py**: Entry point.
+  - **main.py**: Entry point.
   - **chat_screen.py**: Chat interface logic.
   - **chat_logic.py**: Interaction with Ollama and state management.
   - **menu.py**: Defines various menus (main, history, help, model, settings).
