@@ -3,12 +3,14 @@ from debug import debug
 from ui_elements import CustomEdit
 import itertools
 import time
+import re
 
 class ChatScreen:
-    def __init__(self, loop, chat_manager, config):
+    def __init__(self, loop, chat_manager, config, on_quit):
         self.loop = loop
         self.chat_manager = chat_manager
         self.config = config
+        self.on_quit = on_quit
 
         self.status="idle"
         self.default_status="Type your message"
@@ -21,7 +23,12 @@ class ChatScreen:
         self.input_box = CustomEdit([("who", "You"),": "], multiline=True)
         input_box_attr = urwid.AttrMap(self.input_box, 'normal_content')
 
-        self.chat_linebox = urwid.LineBox(chat_list_attr, title=chat_manager.model_name)
+        # Regular expression to extract only the model name
+        model_full_name = chat_manager.model_name
+        match = re.search(r'[^/]+$', model_full_name)  # Matches the last part after "/"
+        model_name = match.group(0) if match else model_full_name
+
+        self.chat_linebox = urwid.LineBox(chat_list_attr, title=model_name)
         self.chat_linebox = urwid.AttrMap(self.chat_linebox, 'normal_linebox_border')
 
         input_linebox = urwid.LineBox(input_box_attr, title=self.default_status)
@@ -146,7 +153,7 @@ class ChatScreen:
 
         if user_input.lower() == "exit":
             self.update_chat("AIm: Goodbye!", spacer=False)
-            raise urwid.ExitMainLoop()
+            raise self.on_quit()
 
         self.chat_manager.send_user_message(
             user_input,

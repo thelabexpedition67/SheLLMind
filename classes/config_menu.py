@@ -17,8 +17,8 @@ class ThemeSelectionMenu:
             styled_text = [
                 ('menu_voice', f"> {theme_name} "),           
                 "\n",                                         
-                ('normal_content', f"  Description: {theme_description}\n"),  
-                ('normal_content', f"  Author: {theme_author}\n")  
+                ('normal_content', f"  {theme_description}\n")  
+                #('normal_content', f"  Author: {theme_author}\n")  
             ]
 
             # Use SelectableIcon to preserve the cursor behavior and support focus
@@ -48,7 +48,7 @@ class ThemeSelectionMenu:
         # Add "No Theme" option at the top
         no_theme_button = self.StyledButton(
             theme_name="No Theme",
-            theme_description="All white colors",
+            theme_description="Best on monochromatic monitors.",
             theme_author="System",
             on_press=self._theme_chosen,
             user_data='default'

@@ -72,7 +72,7 @@ class Application:
             model_name = self.config.model_name
         # Start a new empty conversation
         self.chat_manager = ChatManager(host=self.config.ollama_host, model_name=model_name)
-        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config)
+        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config, self.quit_app)
         self.view = self.chat_screen.widget()
         self.loop.widget = self.view
         self.chat_screen.update_focus_style()
@@ -82,7 +82,7 @@ class Application:
         # Load a saved conversation and resume chat
         self.chat_manager = ChatManager(host=self.config.ollama_host, model_name=self.config.model_name)
         self.chat_manager.load_conversation(filename)
-        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config)
+        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config, self.quit_app)
         self.view = self.chat_screen.widget()
         self.loop.widget = self.view
         self.chat_screen.update_focus_style()
@@ -94,7 +94,7 @@ class Application:
         self.chat_manager.load_conversation_details(filename)  # Load model and other details
         # Now self.chat_manager.model_name should reflect the model previously used
         # Recreate the ChatScreen with the updated model name
-        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config)
+        self.chat_screen = ChatScreen(self.loop, self.chat_manager, self.config, self.quit_app)
         self.view = self.chat_screen.widget()
         self.loop.widget = self.view
         self.chat_screen.update_focus_style()
@@ -226,7 +226,15 @@ class Application:
         self.loop.widget = self.view
 
     def quit_app(self):
-        raise urwid.ExitMainLoop()
+        try:
+            raise urwid.ExitMainLoop()  # Exit Urwid main loop cleanly
+        except urwid.ExitMainLoop:
+            debug("Urwid MainLoop exited cleanly.")
+        finally:
+            os.system('reset')  # Ensures terminal is fully reset
+            debug("Terminal reset and cleared.")
+            # Force exit
+            os._exit(0)
 
     def handle_input(self, key):
         debug(f"Key pressed: {key}")
