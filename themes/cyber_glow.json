@@ -1,0 +1,63 @@
+{
+    "name": "CyberGlow Theme",
+    "description": "A neon-inspired theme with vibrant cyan and magenta highlights, perfect for a futuristic feel.",
+    "author": "TheLabExpedition67",
+    "palette": [
+      {
+        "name": "normal_linebox_border",
+        "foreground": "dark gray",
+        "background": null,
+        "attributes": null,
+        "description": "Line border of unfocused widget"
+      },
+      {
+        "name": "focus_linebox_border",
+        "foreground": "light cyan",
+        "background": null,
+        "attributes": "bold",
+        "description": "Line border of focused widget"
+      },
+      {
+        "name": "menu_voice",
+        "foreground": "light magenta",
+        "background": null,
+        "attributes": "bold",
+        "description": "Highlighted menu voice divider"
+      },
+      {
+        "name": "normal_content",
+        "foreground": "white",
+        "background": null,
+        "attributes": null,
+        "description": "Normal text content"
+      },
+      {
+        "name": "who",
+        "foreground": "light cyan",
+        "background": null,
+        "attributes": "bold",
+        "description": "The chat writer (You/AIm)"
+      },
+      {
+        "name": "ai_message",
+        "foreground": "light magenta",
+        "background": null,
+        "attributes": null,
+        "description": "The message written by AI"
+      },
+      {
+        "name": "user_message",
+        "foreground": "light cyan",
+        "background": null,
+        "attributes": "bold",
+        "description": "The message written by You"
+      },
+      {
+        "name": "divider",
+        "foreground": "light magenta",
+        "background": null,
+        "attributes": "bold",
+        "description": "The divider between messages"
+      }
+    ]
+  }  

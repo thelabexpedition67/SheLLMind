@@ -6,7 +6,8 @@ CONFIG_FILE = os.path.join(os.path.dirname(__file__), "config.json")
 DEFAULT_CONFIG = {
     "ollama_host": "http://127.0.0.1:11434",  # Default host for Ollama
     "model_name": "",          # Default model name
-    "typewriter_speed": 1      # Default typewriter speed
+    "typewriter_speed": 1,      # Default typewriter speed
+    "theme": 0      # Default theme
 }
 
 class Config:
@@ -36,6 +37,10 @@ class Config:
     @property
     def typewriter_speed(self):
         return self._data.get("typewriter_speed", 1)
+
+    @property
+    def theme(self):
+        return self._data.get("theme")
     
     def set_config(self, key, value):
         self._data[key] = value

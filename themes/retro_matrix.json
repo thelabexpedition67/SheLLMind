@@ -1,0 +1,64 @@
+{
+    "name": "Retro Matrix",
+    "description": "A nostalgic theme with green-on-black terminal aesthetics, reminiscent of old hacker movies.",
+    "author": "TheLabExpedition67",
+    "palette": [
+      {
+        "name": "normal_linebox_border",
+        "foreground": "dark green",
+        "background": "black",
+        "attributes": null,
+        "description": "Line border of unfocused widget"
+      },
+      {
+        "name": "focus_linebox_border",
+        "foreground": "light green",
+        "background": null,
+        "attributes": "bold",
+        "description": "Line border of focused widget"
+      },
+      {
+        "name": "menu_voice",
+        "foreground": "light green",
+        "background": null,
+        "attributes": "bold",
+        "description": "Highlighted menu voice divider"
+      },
+      {
+        "name": "normal_content",
+        "foreground": "light green",
+        "background": null,
+        "attributes": null,
+        "description": "Normal text content"
+      },
+      {
+        "name": "who",
+        "foreground": "light green",
+        "background": null,
+        "attributes": "bold",
+        "description": "The chat writer (You/AIm)"
+      },
+      {
+        "name": "ai_message",
+        "foreground": "light green",
+        "background": null,
+        "attributes": null,
+        "description": "The message written by AI"
+      },
+      {
+        "name": "user_message",
+        "foreground": "dark green",
+        "background": null,
+        "attributes": "bold",
+        "description": "The message written by You"
+      },
+      {
+        "name": "divider",
+        "foreground": "dark green",
+        "background": null,
+        "attributes": "bold",
+        "description": "The divider between messages"
+      }
+    ]
+  }
+  

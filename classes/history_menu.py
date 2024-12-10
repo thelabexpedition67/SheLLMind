@@ -11,13 +11,36 @@ class HistoryMenu:
         self.files = []
         self.view = None
 
+
+    class StyledButton(urwid.Button):
+        def __init__(self, file_name, chat_name, chat_model_name, ctime_str, mtime_str, on_press, user_data=None):
+            super().__init__("")
+            
+            # Styled portions of the button's text
+            styled_text = [
+                ('menu_voice', f"> {file_name} "),                # File name with menu_voice style
+                ('chat_model_style', f"({chat_model_name})"),    # Chat model name with custom style
+                "\n",                                            # Newline
+                f" Name: {chat_name}\n",                         # Regular text
+                f" Created: {ctime_str}\n",                      # Regular text
+                f" Modified: {mtime_str}\n"                      # Regular text
+            ]
+
+            # Use SelectableIcon to preserve the cursor behavior
+            self._w = urwid.AttrMap(urwid.SelectableIcon(styled_text, 0), None, focus_map='normal_content')
+            
+            # Connect the button press signal
+            urwid.connect_signal(self, 'click', on_press, user_data)
+
+
     def populate(self, files):
         self.files = files
 
         # If no files, show a message
         if not files:
             text = urwid.Text("No saved chats found.\nPress 'esc' to go back.")
-            self.view = urwid.LineBox(urwid.Filler(text), title="History")
+            line_box = urwid.LineBox(urwid.Filler(text), title="History")
+            self.view = urwid.AttrMap(line_box, 'focus_linebox_border')
             return
 
         # HISTORY_DETAILS_DIR and HISTORY_DIR should match what we have in chat_logic.py
@@ -59,21 +82,21 @@ class HistoryMenu:
         # Sort entries by modified time descending
         entries.sort(key=lambda x: x[4], reverse=True)
 
-        # Create list of buttons with displayed info
         buttons = []
         for f, chat_name, chat_model_name, ctime_str, mtime_str, _ in entries:
-            display_text = f"{f} ({chat_model_name})\nName: {chat_name}\nCreated: {ctime_str}\nModified: {mtime_str}"
-            btn = urwid.Button(display_text)
-            urwid.connect_signal(btn, 'click', self._on_chat_selected, f)
+            # Create the custom StyledButton
+            btn = self.StyledButton(f, chat_name, chat_model_name, ctime_str, mtime_str, 
+                            on_press=self._on_chat_selected, user_data=f)
             buttons.append(btn)
 
         # Add a Back button
-        back_btn = urwid.Button("Back", on_press=lambda x: self.on_back())
+        back_btn = urwid.Button(('normal_content',"Back"), on_press=lambda x: self.on_back())
         buttons.append(back_btn)
 
         list_walker = urwid.SimpleFocusListWalker(buttons)
         list_box = urwid.ListBox(list_walker)
-        self.view = urwid.LineBox(list_box, title="Select a Chat")
+        line_box = urwid.LineBox(list_box, title="Select a Chat")
+        self.view = urwid.AttrMap(line_box, 'focus_linebox_border')
 
     def _on_chat_selected(self, button, filename):
         self.on_select_chat(filename)

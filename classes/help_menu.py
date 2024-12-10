@@ -15,7 +15,8 @@ class HelpMenu:
             "Press 'esc' to return to the main menu."
         )
         filler = urwid.Filler(help_text, 'top')
-        self.view = urwid.LineBox(filler, title="Help")
+        line_box = urwid.LineBox(filler, title="Help")
+        self.view = urwid.AttrMap(line_box, 'focus_linebox_border')
 
     def widget(self):
         return self.view

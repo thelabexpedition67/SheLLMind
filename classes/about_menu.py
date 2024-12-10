@@ -15,7 +15,8 @@ class AboutMenu:
         )
         text_widget = urwid.Text(text_content, align='center')
         filler = urwid.Filler(text_widget, 'top')
-        self.view = urwid.LineBox(filler, title="About ShellMind")
+        line_box = urwid.LineBox(filler, title="About ShellMind")
+        self.view = urwid.AttrMap(line_box, 'focus_linebox_border')
 
     def widget(self):
         return self.view

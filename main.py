@@ -4,6 +4,7 @@ from config import Config
 from debug import clear_debug_log, debug
 from chat_logic import ChatManager
 from chat_screen import ChatScreen
+from themes_manager import Themes
 from menu import Menu
 from ui_elements import CustomEdit
 import json
@@ -15,6 +16,7 @@ from classes.help_menu import HelpMenu
 from classes.model_menu import ModelMenu
 from classes.chat_settings_menu import ChatSettingsMenu
 from classes.config_menu import ModelSelectionMenu
+from classes.config_menu import ThemeSelectionMenu
 from classes.config_menu import ConfigMenu
 
 class Application:
@@ -27,7 +29,7 @@ class Application:
 
         self.menu = Menu(
             config=self.config,
-            on_start_chat=None,  #on_start_chat=self.start_chat,
+            on_start_chat=None,
             on_quit=self.quit_app,
             on_show_history=self.show_history_menu,
             on_show_help=self.show_help_menu,
@@ -46,16 +48,23 @@ class Application:
         )
 
         self.view = self.menu.widget()
-        # Define palette for focus styling
-        self.palette = [
-            ('normal_linebox_border', 'dark gray', 'black'),
-            ('focus_linebox_border', 'white', 'black', 'bold'),
-            ('normal_content', 'white', 'black'),
-            ('who', 'white', '', 'bold'), # The chat Writer You/AIm 
-            ('ai_message', 'light green', ''),# The Message written by AI 
-            ('user_message', 'light cyan', ''),# The Message written by You
-            ('divider', 'light gray', '', 'bold') # The Divider between messages
+
+        # Default palette
+        self.default_palette = [
+            ('normal_linebox_border', 'white', ''),
+            ('focus_linebox_border', 'white', '', ''),
+            ('menu_voice', 'white', '', ''),
+            ('normal_content', 'white', ''),
+            ('who', 'white', '', ''),
+            ('ai_message', 'white', ''),
+            ('user_message', 'white', ''),
+            ('divider', 'white', '', '')
         ]
+
+        # Initialize theme manager
+        self.themes = Themes(default_palette=self.default_palette)
+        self.themes.load_theme(self.config.theme)  # e.g., "0" means 0.json
+        self.palette = self.themes._merge_palette()  # Merge default with loaded theme
 
     def start_chat_with_model(self, model_name=None):
         if model_name is None:
@@ -142,7 +151,8 @@ class Application:
             models=models,
             on_save=self.save_config_changes,
             on_back=self.back_to_main_menu,
-            on_select_model=self.show_model_selection_menu
+            on_select_model=self.show_model_selection_menu,
+            on_select_theme=self.start_theme_selection
         )
         self.view = self.config_menu.widget()
         self.loop.widget = self.view
@@ -166,16 +176,33 @@ class Application:
         self.config_menu.model_edit.set_edit_text(model_name)
         self.back_to_config()
 
+    def start_theme_selection(self):
+        self.theme_menu = ThemeSelectionMenu(
+            themes_directory="./themes",
+            on_select=self.apply_theme,
+            on_back=self.show_config_menu
+        )
+        self.view = self.theme_menu.widget()
+        self.loop.widget = self.view
+
+    def apply_theme(self, theme_filename):
+        self.themes.load_theme(theme_filename)
+        self.palette = self.themes._merge_palette()
+        self.loop.screen.register_palette(self.palette)
+        self.config_menu.theme_edit.set_edit_text(theme_filename)
+        self.back_to_config()       
+
     def back_to_config(self):
         # Return to config menu
         self.view = self.config_menu.widget()
         self.loop.widget = self.view
 
-    def save_config_changes(self, new_host, new_model, new_speed):
+    def save_config_changes(self, new_host, new_model, new_speed, new_theme):
         # Update config and save
         self.config.set_config("ollama_host", new_host)
         self.config.set_config("model_name", new_model)
         self.config.set_config("typewriter_speed", new_speed)
+        self.config.set_config("theme", new_theme)
         # Return to main menu
         self.back_to_main_menu()       
 

@@ -18,20 +18,21 @@ class Menu:
         self.on_show_about = on_show_about
         self.on_show_config = on_show_config
 
-        start_chat_btn = menu_button("Start Chat", lambda button: self.on_show_model_menu())
-        history_btn = menu_button("History", lambda button: self.on_show_history())
-        help_btn = menu_button("Help", lambda button: self.on_show_help())
-        quit_btn = menu_button("Quit", lambda button: self.on_quit())
-        about_btn = menu_button("About", lambda button: self.on_show_about())
-        config_btn = menu_button("Configuration", lambda button: self.on_show_config())
+        start_chat_btn = menu_button(("menu_voice", "Start Chat"), lambda button: self.on_show_model_menu())
+        history_btn = menu_button(("menu_voice", "History"), lambda button: self.on_show_history())
+        help_btn = menu_button(("menu_voice", "Help"), lambda button: self.on_show_help())
+        quit_btn = menu_button(("normal_content", "Quit"), lambda button: self.on_quit())
+        about_btn = menu_button(("menu_voice", "About"), lambda button: self.on_show_about())
+        config_btn = menu_button(("menu_voice", "Configuration"), lambda button: self.on_show_config())
 
         menu_items = [start_chat_btn, history_btn, config_btn, help_btn, about_btn, quit_btn]
         self.list_walker = urwid.SimpleFocusListWalker(menu_items)
         # Add a footer text to the menu
         footer_text = urwid.Text("SheLLMind - TheLabExpedition67", align='right')
         frame = urwid.Frame(urwid.ListBox(self.list_walker), footer=footer_text)
-        self.view = urwid.LineBox(frame, title="Menu")
-        
+        line_box = urwid.LineBox(frame, title="Menu")
+        self.view = urwid.AttrMap(line_box, 'focus_linebox_border')
+
     def widget(self):
         return self.view
 

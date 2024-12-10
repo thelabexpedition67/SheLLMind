@@ -1,0 +1,64 @@
+{
+    "name": "Solarized Twilight",
+    "description": "Inspired by the Solarized color palette with a twilight twist, designed for evening chats.",
+    "author": "TheLabExpedition67",
+    "palette": [
+      {
+        "name": "normal_linebox_border",
+        "foreground": "light gray",
+        "background": null,
+        "attributes": null,
+        "description": "Line border of unfocused widget"
+      },
+      {
+        "name": "focus_linebox_border",
+        "foreground": "yellow",
+        "background": null,
+        "attributes": "bold",
+        "description": "Line border of focused widget"
+      },
+      {
+        "name": "menu_voice",
+        "foreground": "light cyan",
+        "background": null,
+        "attributes": "bold",
+        "description": "Highlighted menu voice divider"
+      },
+      {
+        "name": "normal_content",
+        "foreground": "white",
+        "background": null,
+        "attributes": null,
+        "description": "Normal text content"
+      },
+      {
+        "name": "who",
+        "foreground": "yellow",
+        "background": null,
+        "attributes": "bold",
+        "description": "The chat writer (You/AIm)"
+      },
+      {
+        "name": "ai_message",
+        "foreground": "light cyan",
+        "background": null,
+        "attributes": null,
+        "description": "The message written by AI"
+      },
+      {
+        "name": "user_message",
+        "foreground": "yellow",
+        "background": null,
+        "attributes": null,
+        "description": "The message written by You"
+      },
+      {
+        "name": "divider",
+        "foreground": "dark cyan",
+        "background": null,
+        "attributes": "bold",
+        "description": "The divider between messages"
+      }
+    ]
+  }
+  
