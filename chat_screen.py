@@ -2,6 +2,7 @@ import urwid
 from debug import debug
 from ui_elements import CustomEdit
 import itertools
+import time
 
 class ChatScreen:
     def __init__(self, loop, chat_manager, config):
@@ -183,42 +184,49 @@ class ChatScreen:
             self.stop_status_animation()
         loop.set_alarm_in(0.05, self.periodic_update)
 
+
     def typewriter_effect(self, loop, user_data):
+        """Non-blocking typewriter effect using time checks."""
         if self.chat_manager.current_placeholder is None or self.chat_manager.current_reply is None:
             return
 
-        if self.chat_manager.current_placeholder and self.chat_manager.current_reply:
-            speed = self.config.typewriter_speed
+        # Initialize or retrieve the last update time
+        if not hasattr(self, 'last_type_time'):
+            self.last_type_time = time.time()
 
-            # Full display immediately if speed is 0
-            if speed == 0:
-                full_text = [('who', 'AIm'),": ", ('ai_message', self.chat_manager.current_reply)]
-                self.chat_manager.current_placeholder.set_text(full_text)
-                self.chat_manager.stop_typing_effect()
-                self.scroll_to_bottom()
-                self.stop_status_animation()
-                return
+        # Delay calculation: 1 (moderate) to 10 (nearly instant)
+        # Bias allows customization for overall speed adjustments
+        BIAS = 0.12  # Adjust this value: lower = faster overall, higher = slower
 
-            # Typewriter effect
+        speed = self.config.typewriter_speed
+        delay = max(0.001, (0.1 / speed) * BIAS)  # Ensure a minimum delay of 1ms
+
+        # Check elapsed time
+        if time.time() - self.last_type_time >= delay:
+            self.last_type_time = time.time()  # Reset timer
+
             if self.chat_manager.current_index < len(self.chat_manager.current_reply):
+                # Construct the current message
                 current_message = self.chat_manager.current_reply[: self.chat_manager.current_index + 1]
-                # Combine the prefix "AIm: " with styled content
-                full_text = [('who', 'AIm'),": ", ('ai_message', current_message)]
+                full_text = [('who', 'AIm'), ": ", ('ai_message', current_message)]
 
-                # Update placeholder
+                # Update placeholder text
                 self.chat_manager.current_placeholder.set_text(full_text)
                 self.chat_manager.current_index += 1
                 self.scroll_to_bottom()
 
-                delay = max(0.02, 0.15 - ((speed - 1) * 0.01))
-                self.loop.set_alarm_in(delay, self.typewriter_effect)
+                # Reschedule without blocking
+                self.loop.set_alarm_in(0, self.typewriter_effect)
             else:
-                # Typewriter complete, show full styled response
-                full_text = [('who', 'AIm'),": ", ('ai_message', self.chat_manager.current_reply)]
+                # Typing complete: display full message
+                full_text = [('who', 'AIm'), ": ", ('ai_message', self.chat_manager.current_reply)]
                 self.chat_manager.current_placeholder.set_text(full_text)
                 self.chat_manager.stop_typing_effect()
                 self.scroll_to_bottom()
                 self.stop_status_animation()
+
+                # Clean up the timer
+                del self.last_type_time
 
     def update_focus_style(self):
         """Update border styles based on focus."""
