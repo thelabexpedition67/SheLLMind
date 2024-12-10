@@ -1,8 +1,8 @@
 # SheLLMind
 
-**SheLLMind** is a terminal-based interactive chat application that integrates with the [Ollama](https://ollama.ai/) API to provide a local LLM-based chat experience. It supports session persistence, multiple model selection, scrolling chat history, and various configuration menus—all within the terminal environment.
+**SheLLMind** is a terminal-based interactive chat application that integrates with the [Ollama](https://ollama.ai/) API to provide a local LLM-based chat experience. It supports session persistence, multiple model selection, scrolling chat history, and various configuration menus, all within the terminal environment.
 
-I built this software just because I wanted to run it on my old green CRT monitor. It's all about the nostalgia of typing away in a dark room\n with the gentle glow of phosphor characters dancing across the screen.
+I built this software just because I wanted to run it on my old green CRT monitor. It's all about the nostalgia of typing away in a dark room with the gentle glow of phosphor characters dancing across the screen.
 
 **Modern AI, retro style.**
 

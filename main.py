@@ -48,10 +48,13 @@ class Application:
         self.view = self.menu.widget()
         # Define palette for focus styling
         self.palette = [
-            ('normal_linebox_border', 'white', 'black'),
-            ('focus_linebox_border', 'light cyan', 'black'),
+            ('normal_linebox_border', 'dark gray', 'black'),
+            ('focus_linebox_border', 'white', 'black', 'bold'),
             ('normal_content', 'white', 'black'),
-            ("divider", "dark cyan", "black")
+            ('who', 'white', '', 'bold'), # The chat Writer You/AIm 
+            ('ai_message', 'light green', ''),# The Message written by AI 
+            ('user_message', 'light cyan', ''),# The Message written by You
+            ('divider', 'light gray', '', 'bold') # The Divider between messages
         ]
 
     def start_chat_with_model(self, model_name=None):
